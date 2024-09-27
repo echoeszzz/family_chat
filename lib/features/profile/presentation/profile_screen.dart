@@ -168,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Theme.of(context).colorScheme.secondary,
                         foregroundColor:
                             Theme.of(context).colorScheme.onSecondary,
-                        padding: EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
