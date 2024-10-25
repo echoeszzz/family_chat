@@ -1,4 +1,3 @@
-import 'package:family_locator/features/chat/presentation/chat_screen.dart';
 import 'package:family_locator/features/chat_list/data/chat_card_model.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +20,10 @@ class ChatCard extends StatelessWidget {
       subtitle: Text(chat.lastMessage),
       trailing: Text(chat.time),
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(
-            builder: (context) => ChatScreen(chat: chat),
-          ),
+          '/chat',
+          arguments: chat,
         );
       },
     );

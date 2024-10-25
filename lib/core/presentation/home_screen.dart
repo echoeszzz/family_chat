@@ -1,6 +1,6 @@
 import 'package:family_locator/features/chat_list/presenation/chat_list_screen.dart';
 import 'package:family_locator/features/contacts/presentation/contacts_screen.dart';
-import 'package:family_locator/features/prac5/presentation/prac5_screen.dart';
+import 'package:family_locator/features/settings/presentation/settings_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../features/profile/presentation/profile_screen.dart';
@@ -15,10 +15,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   static final List<Widget> _screens = <Widget>[
-    const ContactsScreen(),
     const ChatListScreen(),
+    const ContactsScreen(),
     ProfileScreen(),
-    Prac5Screen(),
+    SettingsScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -35,23 +35,24 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contact_page_outlined),
-            label: "Contacts",
-          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message_outlined),
             label: "Messages",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_page_outlined),
+            label: "Contacts",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
             label: "Profile",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_tree),
-            label: "Practice 5",
-          )
+            icon: Icon(Icons.settings_outlined),
+            label: "Settings",
+          ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.blue,

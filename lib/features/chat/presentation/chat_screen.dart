@@ -1,5 +1,4 @@
 import 'package:family_locator/features/chat_list/data/chat_card_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
