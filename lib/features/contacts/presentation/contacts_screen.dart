@@ -3,6 +3,7 @@
 import 'package:family_locator/features/contacts/data/contacts_datasource.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -73,11 +74,11 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     future: _contactsFuture,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       } else if (snapshot.hasError) {
-                        return Center(child: Text('Ошибка загрузки контактов'));
+                        return const Center(child: Text('Ошибка загрузки контактов'));
                       } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                        return Center(child: Text('Контакты не найдены'));
+                        return const Center(child: Text('Контакты не найдены'));
                       } else {
                         _contacts = List.from(snapshot.data!);
                         return ListView.builder(
@@ -91,14 +92,28 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: ListTile(
+                                contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 12.0,
+                                  horizontal: 16.0,
+                                ),
                                 leading: CircleAvatar(
                                   radius: 25,
-                                  backgroundImage: NetworkImage(contact.avatarUrl),
+                                  backgroundColor: Colors.transparent,
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: contact.avatarUrl,
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      placeholder: (context, url) => const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                                    ),
+                                  ),
                                 ),
                                 title: Text(
                                   contact.name,
                                   style: const TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 20, // Увеличиваем размер шрифта
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -106,6 +121,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                   contact.status,
                                   style: TextStyle(
                                     color: Colors.grey[600],
+                                    fontSize: 16,
                                   ),
                                 ),
                                 trailing: IconButton(
@@ -150,15 +166,16 @@ class _ContactsScreenState extends State<ContactsScreen> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 CircleAvatar(
-                                  radius: 50,
+                                  radius: 60,
                                   backgroundImage:
-                                  NetworkImage(_selectedContact!.avatarUrl),
+                                  CachedNetworkImageProvider(_selectedContact!.avatarUrl),
+                                  backgroundColor: Colors.transparent,
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
                                   _selectedContact!.name,
                                   style: const TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 26,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -166,7 +183,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 Text(
                                   _selectedContact!.status,
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 18,
                                     color: Colors.grey[700],
                                   ),
                                 ),
