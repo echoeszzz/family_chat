@@ -1,9 +1,11 @@
 // contacts_screen.dart
 
 import 'package:family_locator/features/contacts/data/contacts_datasource.dart';
+import 'package:family_locator/locator.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:get_it/get_it.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -13,7 +15,7 @@ class ContactsScreen extends StatefulWidget {
 }
 
 class _ContactsScreenState extends State<ContactsScreen> {
-  final ContactsDataSource _dataSource = ContactsDataSource();
+  final ContactsDataSource _dataSource = GetIt.I<ContactsDataSource>();
   late Future<List<Contact>> _contactsFuture;
   List<Contact> _contacts = [];
 
@@ -113,7 +115,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                                 title: Text(
                                   contact.name,
                                   style: const TextStyle(
-                                    fontSize: 20, // Увеличиваем размер шрифта
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

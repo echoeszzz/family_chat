@@ -1,32 +1,16 @@
 import 'package:flutter/material.dart';
+import '../../prac9/UserProvider.dart';
 import '../data/profile_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    return _ProfileScreenState(
-        profileModel: ProfileModel(
-            id: 1,
-            fullName: "Ivan Ruzin",
-            username: "ivanruzin",
-            description: "First profile page in my new messenger",
-            birthDate: DateTime(2003, 7, 2),
-            imgURL:
-                "https://www.diamondartclub.com/cdn/shop/files/inspector-gadget"
-                "-diamond-art-painting-34301116842177.jpg?v=1688993351&width=3000"));
-  }
+  State<StatefulWidget> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  ProfileModel profileModel;
-
   double _imageHeight = 330;
   final double _smallImageHeight = 150;
   final double _defaultImageHeight = 330;
-
-  _ProfileScreenState({
-    required this.profileModel,
-  });
 
   void _shrinkImage() {
     setState(() {
@@ -42,6 +26,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final userProvider = UserProvider.of(context);
+    final ProfileModel? profileModel = userProvider?.currentUser;
     return Scaffold(
       appBar: AppBar(),
       body: Center(
@@ -56,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(16),
                   child: Image.network(
-                    profileModel.imgURL,
+                    profileModel!.imgURL,
                     fit: BoxFit.cover,
                   ),
                 ),
